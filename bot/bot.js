@@ -24,16 +24,7 @@ Bot.prototype.tweet = function (status, callback) {
 //Search twitter for all tweets that satisfy the given params
 //
 Bot.prototype.search = function (params, callback) { 
-  this.twit.get('search/tweets', params, function (err, reply) { 
-    if(err) return callback(err);
-
-    var tweets = reply.statuses;
-    var arrayLength = tweets.length;
-
-    for (var i=0; i<arrayLength; i++) {
-      console.log(tweets[i].text)
-    }
-  });
+  this.twit.get('search/tweets', params, callback);
 };
 
 

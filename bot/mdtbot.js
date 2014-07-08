@@ -31,7 +31,6 @@ function datestring () {
 
 setInterval(function() {
   //Display all tweets from the miami area that mention 'taxi' or 'cab'
-
   var params = {
     q: "taxi OR cab"
   , since: datestring()
@@ -42,6 +41,13 @@ setInterval(function() {
 
   bot.search(params, function(err, reply) {
     if(err) return handleError(err);
+    var tweets = reply.statuses;
+    var arrayLength = tweets.length;
+
+    //stream each tweet to client side
+    for (var i=0; i<arrayLength; i++) {
+      io.sockets.emit('stream', tweets[i].text);
+    }
   });
 
 }, 5000); //Every 40 seconds
